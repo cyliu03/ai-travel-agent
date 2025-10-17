@@ -1,4 +1,5 @@
 // Vercel 部署配置
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -6,8 +7,8 @@ const helmet = require('helmet');
 const compression = require('compression');
 
 // 导入路由
-const travelRoutes = require('./backend/routes/travel');
-const exportRoutes = require('./backend/routes/export');
+const travelRoutes = require('../backend/routes/travel');
+const exportRoutes = require('../backend/routes/export');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
