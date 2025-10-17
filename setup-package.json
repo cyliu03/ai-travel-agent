@@ -1,0 +1,15 @@
+{
+  "name": "ai-travel-agent-setup",
+  "version": "1.0.0",
+  "description": "AI旅游规划助手 - 安装和配置脚本",
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "install-deps": "npm install",
+    "check-env": "node -e \"console.log('CLAUDE_API_KEY:', process.env.CLAUDE_API_KEY ? '已设置' : '未设置')\""
+  },
+  "keywords": ["ai", "travel", "claude", "setup"],
+  "author": "AI Travel Agent",
+  "license": "MIT"
+}

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI旅游规划助手</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app">
+        <!-- 头部 -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-plane"></i>
+                        <h1>AI旅游规划助手</h1>
+                    </div>
+                    <nav class="nav">
+                        <a href="#home" class="nav-link active">首页</a>
+                        <a href="#about" class="nav-link">关于</a>
+                        <a href="#contact" class="nav-link">联系</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="main">
+            <!-- 欢迎区域 -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2 class="hero-title">让AI为你的旅行出谋划策</h2>
+                        <p class="hero-subtitle">基于Claude AI的智能旅游规划，为你量身定制完美行程</p>
+                        <button class="cta-button" onclick="startPlanning()">
+                            <i class="fas fa-rocket"></i>
+                            开始规划
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 人设选择 -->
+            <section class="persona-selection" id="personaSection" style="display: none;">
+                <div class="container">
+                    <div class="section-header">
+                        <button class="back-button" onclick="goToHome()">
+                            <i class="fas fa-arrow-left"></i>
+                            返回首页
+                        </button>
+                        <h3 class="section-title">选择你的旅行类型</h3>
+                        <div class="section-subtitle">根据你的需求选择最合适的旅行方式</div>
+                    </div>
+                    <div class="persona-grid">
+                        <div class="persona-card" data-persona="explorer">
+                            <div class="persona-icon">
+                                <i class="fas fa-compass"></i>
+                            </div>
+                            <h4>探索型</h4>
+                            <p>有想法但不知道去哪</p>
+                            <ul>
+                                <li>目的地推荐</li>
+                                <li>季节适配</li>
+                                <li>预算匹配</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="persona-card" data-persona="planner">
+                            <div class="persona-icon">
+                                <i class="fas fa-route"></i>
+                            </div>
+                            <h4>方案型</h4>
+                            <p>知道去哪但需要路线规划</p>
+                            <ul>
+                                <li>交通建议</li>
+                                <li>住宿推荐</li>
+                                <li>行程安排</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="persona-card" data-persona="budget">
+                            <div class="persona-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <h4>预算型</h4>
+                            <p>预算有限需要最优解</p>
+                            <ul>
+                                <li>省钱策略</li>
+                                <li>性价比选择</li>
+                                <li>预算分配</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="persona-card" data-persona="family">
+                            <div class="persona-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>家庭亲子型</h4>
+                            <p>带孩子的安全舒适旅行</p>
+                            <ul>
+                                <li>亲子设施</li>
+                                <li>安全考虑</li>
+                                <li>节奏安排</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="persona-card" data-persona="experience">
+                            <div class="persona-icon">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <h4>深度体验型</h4>
+                            <p>追求小众和深度文化</p>
+                            <ul>
+                                <li>小众景点</li>
+                                <li>文化体验</li>
+                                <li>深度活动</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="persona-card" data-persona="leisure">
+                            <div class="persona-icon">
+                                <i class="fas fa-umbrella-beach"></i>
+                            </div>
+                            <h4>轻松休闲型</h4>
+                            <p>度假放松，慢节奏旅行</p>
+                            <ul>
+                                <li>度假村推荐</li>
+                                <li>spa体验</li>
+                                <li>慢节奏安排</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="persona-card" data-persona="business">
+                            <div class="persona-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h4>商务顺带游</h4>
+                            <p>出差顺便短途游玩</p>
+                            <ul>
+                                <li>商务酒店</li>
+                                <li>短途景点</li>
+                                <li>时间安排</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 参数表单 -->
+            <section class="parameter-form" id="parameterSection" style="display: none;">
+                <div class="container">
+                    <div class="form-container">
+                        <div class="section-header">
+                            <button class="back-button" onclick="goBack()">
+                                <i class="fas fa-arrow-left"></i>
+                                返回选择
+                            </button>
+                            <h3 class="section-title">填写旅行信息</h3>
+                            <div class="section-subtitle">请填写详细信息，AI将为你生成专属计划</div>
+                        </div>
+                        <form id="travelForm">
+                            <div class="form-grid">
+                                <!-- 基础信息 -->
+                                <div class="form-group">
+                                    <label for="origin">出发地</label>
+                                    <input type="text" id="origin" name="origin" placeholder="例如：北京" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="destination">目的地</label>
+                                    <input type="text" id="destination" name="destination" placeholder="例如：日本东京">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="dateRange">出行时间</label>
+                                    <input type="text" id="dateRange" name="dateRange" placeholder="例如：2024年3月15-20日" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="budget">预算范围</label>
+                                    <input type="text" id="budget" name="budget" placeholder="例如：5000元/人" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="companions">同行人员</label>
+                                    <input type="text" id="companions" name="companions" placeholder="例如：2个成人" required>
+                                </div>
+                                
+                                <!-- 偏好设置组件 -->
+                                <div class="form-preferences-group" id="preferencesGroup" style="display: none;">
+                                    <h4>偏好设置</h4>
+                                    
+                                    <!-- 所有偏好字段统一布局 -->
+                                    <div class="preferences-grid">
+                                        <!-- 选择类偏好 -->
+                                        <div class="form-group">
+                                            <label for="climate">气候偏好</label>
+                                            <select id="climate" name="climate">
+                                                <option value="">请选择</option>
+                                                <option value="温暖">温暖</option>
+                                                <option value="凉爽">凉爽</option>
+                                                <option value="避雨">避雨</option>
+                                                <option value="避暑">避暑</option>
+                                                <option value="四季如春">四季如春</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="transportPreference">交通偏好</label>
+                                            <select id="transportPreference" name="transportPreference">
+                                                <option value="">请选择</option>
+                                                <option value="飞机">飞机</option>
+                                                <option value="高铁">高铁</option>
+                                                <option value="自驾">自驾</option>
+                                                <option value="混合">混合</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="accommodationPreference">住宿偏好</label>
+                                            <select id="accommodationPreference" name="accommodationPreference">
+                                                <option value="">请选择</option>
+                                                <option value="星级酒店">星级酒店</option>
+                                                <option value="特色民宿">特色民宿</option>
+                                                <option value="带厨房">带厨房</option>
+                                                <option value="亲子友好">亲子友好</option>
+                                                <option value="商务酒店">商务酒店</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="activityPreferences">活动偏好</label>
+                                            <textarea id="activityPreferences" name="activityPreferences" class="auto-resize" placeholder="例如：博物馆、徒步、潜水、滑雪、购物、演出"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="savingPriority">省钱优先级</label>
+                                            <select id="savingPriority" name="savingPriority">
+                                                <option value="">请选择</option>
+                                                <option value="交通">交通</option>
+                                                <option value="住宿">住宿</option>
+                                                <option value="餐饮">餐饮</option>
+                                                <option value="门票">门票</option>
+                                                <option value="购物">购物</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="tradeoffs">可接受的取舍</label>
+                                            <textarea id="tradeoffs" name="tradeoffs" class="auto-resize" placeholder="例如：夜间交通、红眼航班、郊区住宿、拼车、拼房"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="pace">行程节奏</label>
+                                            <select id="pace" name="pace">
+                                                <option value="">请选择</option>
+                                                <option value="松弛">松弛</option>
+                                                <option value="均衡">均衡</option>
+                                                <option value="紧凑">紧凑</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="childrenAge">儿童年龄</label>
+                                            <input type="text" id="childrenAge" name="childrenAge" placeholder="例如：5岁、8岁">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="babyFacilities">婴幼儿设施需求</label>
+                                            <textarea id="babyFacilities" name="babyFacilities" class="auto-resize" placeholder="例如：婴儿床、安全座椅、母婴室、加热餐具"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="dietaryNeeds">饮食与过敏</label>
+                                            <textarea id="dietaryNeeds" name="dietaryNeeds" class="auto-resize" placeholder="例如：素食、过敏食物、特殊饮食需求"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="depth">体验深度</label>
+                                            <select id="depth" name="depth">
+                                                <option value="">请选择</option>
+                                                <option value="浅度体验">浅度体验</option>
+                                                <option value="中度体验">中度体验</option>
+                                                <option value="深度体验">深度体验</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="interests">兴趣领域</label>
+                                            <textarea id="interests" name="interests" class="auto-resize" placeholder="例如：艺术、历史、建筑、音乐、文学、摄影"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="languageSkills">语言能力</label>
+                                            <select id="languageSkills" name="languageSkills">
+                                                <option value="">请选择</option>
+                                                <option value="只会中文">只会中文</option>
+                                                <option value="基础英语">基础英语</option>
+                                                <option value="流利英语">流利英语</option>
+                                                <option value="多语言">多语言</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="leisurePreferences">休闲偏好</label>
+                                            <textarea id="leisurePreferences" name="leisurePreferences" class="auto-resize" placeholder="例如：spa、按摩、海滩、温泉、慢节奏"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="accommodationRequirements">住宿要求</label>
+                                            <textarea id="accommodationRequirements" name="accommodationRequirements" class="auto-resize" placeholder="例如：度假村、带泳池、海景房、spa设施"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="activityLevel">活动强度</label>
+                                            <select id="activityLevel" name="activityLevel">
+                                                <option value="">请选择</option>
+                                                <option value="极低">极低</option>
+                                                <option value="低">低</option>
+                                                <option value="中等">中等</option>
+                                                <option value="高">高</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="meetingTime">会议时间</label>
+                                            <input type="text" id="meetingTime" name="meetingTime" placeholder="例如：3月15日 9:00-17:00">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="meetingLocation">会议地点</label>
+                                            <input type="text" id="meetingLocation" name="meetingLocation" placeholder="例如：东京国际会议中心">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="availableTime">可游玩时间</label>
+                                            <input type="text" id="availableTime" name="availableTime" placeholder="例如：会议前后各1天">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="businessNeeds">商务需求</label>
+                                            <textarea id="businessNeeds" name="businessNeeds" class="auto-resize" placeholder="例如：商务酒店、交通便利、适合商务人士的餐厅"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="preferences">旅行偏好</label>
+                                            <textarea id="preferences" name="preferences" class="auto-resize" placeholder="例如：自然风光、历史人文、美食体验、户外运动"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="constraints">特殊需求</label>
+                                            <textarea id="constraints" name="constraints" class="auto-resize" placeholder="例如：素食、无障碍设施、语言要求"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <div class="form-group output-format-group">
+                                    <label for="outputFormat">输出格式</label>
+                                    <select id="outputFormat" name="outputFormat">
+                                        <option value="markdown">Markdown文档</option>
+                                        <option value="pdf">PDF文档</option>
+                                        <option value="poster">海报图片</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="action-buttons">
+                                    <button type="button" class="btn-secondary" onclick="goBack()">
+                                        <i class="fas fa-arrow-left"></i>
+                                        返回
+                                    </button>
+                                    <button type="submit" class="btn-primary">
+                                        <i class="fas fa-magic"></i>
+                                        生成计划
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 结果展示 -->
+            <section class="results" id="resultsSection" style="display: none;">
+                <div class="container">
+                    <div class="results-container">
+                        <div class="results-header">
+                            <div class="results-title-section">
+                                <button class="back-button" onclick="goBackToForm()">
+                                    <i class="fas fa-arrow-left"></i>
+                                    返回修改
+                                </button>
+                                <div class="title-content">
+                                    <h3 class="section-title">你的专属旅游计划</h3>
+                                    <div class="section-subtitle">AI为你精心设计的个性化行程</div>
+                                </div>
+                            </div>
+                            <div class="results-actions">
+                                <button class="btn-secondary" onclick="exportPlan('markdown')">
+                                    <i class="fas fa-download"></i>
+                                    下载Markdown
+                                </button>
+                                <button class="btn-secondary" onclick="exportPlan('pdf')">
+                                    <i class="fas fa-file-pdf"></i>
+                                    下载PDF
+                                </button>
+                                <button class="btn-secondary" onclick="exportPlan('poster')">
+                                    <i class="fas fa-image"></i>
+                                    下载海报
+                                </button>
+                                <button class="btn-primary" onclick="startNewPlan()">
+                                    <i class="fas fa-plus"></i>
+                                    新建计划
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="results-content">
+                            <div class="loading" id="loadingIndicator">
+                                <div class="spinner"></div>
+                                <p>AI正在为你生成专属旅游计划...</p>
+                            </div>
+                            
+                            <div class="plan-content" id="planContent" style="display: none;">
+                                <!-- 计划内容将在这里动态加载 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <p>&copy; 2024 AI旅游规划助手. 基于Claude AI技术.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
