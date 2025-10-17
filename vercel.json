@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "vercel-server.js",
-      "use": "@vercel/node"
+  "functions": {
+    "vercel-server.js": {
+      "runtime": "nodejs18.x"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/(.*)",
@@ -13,7 +12,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "dest": "/vercel-server.js"
     }
   ]
 }
